@@ -1,0 +1,26 @@
+.gap {
+  margin: 0 10px;
+}
+
+.box-1 {
+  background-color: aqua;
+}
+
+.box-2 {
+  height: 100px;
+  background-color: burlywood;
+}
+
+.float {
+  float: left;
+  height: 150px;
+  background-color: chocolate;
+}
+
+.clear {
+  clear: both;
+}
+
+.overflow {
+  overflow: hidden;
+}
