@@ -137,7 +137,7 @@ git remote add origin git@xxx
 
 `git rebase`表示变基，我理解为把当前分支的提交在新的“基础”上再提交一遍，相比于`merge`，`rebase`能够让`git`树保持相对简洁
 
-当然，`rebase`的作用不仅仅是合并代码，加上`-i`参数后可以有更多的功能，例如**修改提交信息**，**合并多个提交**
+当然，`rebase`的作用不仅仅是合并代码，加上`-i`参数后可以有更多的功能，例如**修改提交信息**，**合并多个提交**，但是`rebase`一般适用于本地的分支，如果推送到远程且有其他合作开发，尽量不要适用`rebase`
 
 `git rebase -i`会有多个命令供选择，命令列表及其用法如下图：
 
@@ -213,7 +213,7 @@ git remote add origin git@xxx
 
 `footer`用来记录`BREAKING CHANGE`和标注本次提交修改了哪些`issue`提到的问题
 
-上述规范比较适用于开源项目，而对于公司业务型的项目可以精简一下，大多数情况只需要`type`和`subject`就够了
+上述规范比较适用于开源项目，而对于公司业务型的项目可以精简一下，大多数情况只需要`type`和`subject`就够了，`feat`后加上`!`也可以表名这次提交是`BREAKING CHANGE`
 
 #### 2.2.2 避免不规范的提交
 
@@ -335,8 +335,66 @@ module.exports = {
 };
 ```
 
-### 2.2 根据提交信息生成更新日志
+### 2.2 根据提交信息生成更新日志和版本号
+
+关于版本号也是有学问的，不是随便定义的，业界定义版本号主要遵循的规则是[Semantic Versioning](https://semver.org/lang/zh-CN/)
+
+`Semantic Versioning`定义的版本号形如`X.Y.Z`：
+
+- `X`称之为主办本号，当做了**不向下兼容**的修改时改变，`X`为 0 时表示处于内部版本，`API`可能变更
+- `Y`称之为次版本号，当做了**向下兼容**的功能新赠时改变
+- `Z`称之为修正版本号，当做了**向下兼容**的问题修正且没有新功能时改变
+
+每次前面的版本号有变化的时候，后面的版本号必须归零，例如`X`有变化，则`Y`,`Z`必须归零
+
+在前面提到的`git`提交规范中，`type`的取值`fix`会影响修正版本号`Z`，`feat`会影响次版本号`Y`，而`BREAKING CHANGE`会影响主办本号`X`，其他提交一般不会影响版本号
+
+介绍完版本号，接下来介绍三个工具
+
+- [conventional-changelog-cli](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli)
+
+生成`CHANGELOG.md`并修改 package.json 的版本号，不会自动提交并新建`Tag`
+
+- [standard-version](https://github.com/conventional-changelog/standard-version)
+
+生成`CHANGELOG.md`并修改 package.json 的版本号、提交修改、创建`Tag`
+
+- [semantic-release](https://github.com/semantic-release/semantic-release)
+
+生成`CHANGELOG.md`并修改 package.json 的版本号、提交修改、创建`Tag`、自动发布
 
 ### 2.3 Git Flow
 
+一个良好的软件开发流程，联调-测试-(灰度)-发布等过程都是十分重要的，而软件开发过程中如何将层出不穷的需求以及各种个样的 BUG 合理安排在  联调-测试-(灰度)-发布中运转也是一个问题，`Git Flow`可以帮开发者解决这个问题。
+
+为了方便理解，下面假设一个完整的流程只有**测试环境**和**正式环境**
+
+![img](../../img/git/git-flow.png)
+
+上图是网络上找的`Git Flow`流程图，`Git Flow`有两个长期维护的分支`master`和`develop`，分别对应正式环境和测试环境，其他分支说明如下：
+
+- `feature`分支，功能开发分支，从`develop`切出来，开发并联调完成合回`develop`，之后可以被删除
+- `hotfix`分支，线上 BUG 修复分支，从`master`切出来，修复并测试后，合回`master`，并且合并至`develop`，之后可以被删除
+- `release`分支，当一个迭代的`feature`开发完后，从`develop`切出来，提交测试并进行`bug`修复（bug 修复通常也需要合并至`develop`），完成后合并至`master`并打`Tag`，之后可删除，完成一次迭代
+
+从我个人的经验来讲，`Git Flow`并不适用于现在的开发模式，因为它有以下问题：
+
+1. `feature`分支从`develop`切，包含未经测试的代码
+2. `release`分支必须对已合并的所有需求进行测试，一旦有需求未测完，其他需求都不能上线
+
 ### 2.4 我推荐的流程
+
+基于我的经验，需求延期（需求变更、未开发完、未测完等），需求插队（紧急需求，紧急 bug）等现象十分普遍，所以`Git Flow`也需要做以下调整：
+
+1. `feature`需求分支从`master`分支切，因为`master`分支都代码都是**经过测试验证**的代码，后续开发和 bug 修复都在`feature`分支进行，测试完成之后，按产品计划随时可以合并至 master 分支并上线，不用等其他未测完的需求
+2. `hotfix`分支，跟`feature`分支是一样的操作，因为线上 bug 可以理解为紧急需求
+
+**注意**，我们从始至终操作的都是`feature`分支：
+
+- 我们从`master`分支切出`feature`分支
+- 我们在`feature`分支上开发，联调
+- 我们把`feature`分支合并到`develop`分支提测
+- 我们在`feature`分支修改 bug，再合并到`develop`分支给测试验证 bug
+- 我们把`feature`分支合并到`master`上线，随后`feature`分支可以删除
+
+`develop`分支和`master`分支不会也**不能**有直接的合并，因为`develop`的包含未经测试的代码，长期下来`develop`和`master`分支可能存在差异，可以考虑在适当的时候（`develop`上的需求都经过测试的时候），删除`develop`再重新从`master`切一个新的`develop`

@@ -6,5 +6,11 @@ export default defineConfig({
   base: '/note',
   publicPath: '/note/',
   exportStatic: {},
+  copy: [
+    {
+      from: 'examples',
+      to: 'examples',
+    },
+  ],
   // more config: https://d.umijs.org/config
 });
