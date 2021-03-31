@@ -1,20 +1,16 @@
-.gap {
-  margin: 0 10px;
-}
-
-.box-1 {
+.box1 {
   height: 50px;
   margin-bottom: 10px;
   background-color: aqua;
 }
 
-.box-2 {
+.box2 {
   height: 50px;
   margin-top: 10px;
   background-color: burlywood;
 }
 
-.box-2.margin {
+.box2.margin {
   display: inline-block;
   width: 100%;
 }
@@ -31,5 +27,4 @@
 .child {
   margin-bottom: 30px;
   background-color: coral;
-
 }
