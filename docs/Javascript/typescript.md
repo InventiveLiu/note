@@ -1,6 +1,6 @@
 ---
 title: typescript
-order: 3
+order: 4
 group:
   title: javaScript
   path: /js

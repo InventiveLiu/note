@@ -14,12 +14,12 @@ order: 0
 - [ ] 表示未完成
 - [x] 表示已完成
 
-***
+---
 
 - 个人项目
   - [ ] 模版库
   - [ ] `cli`工具
-  - [ ] UI组件库
+  - [ ] UI 组件库
   - [ ] 常用工具函数
 - HTML
   - [x] 基础
@@ -27,8 +27,8 @@ order: 0
 - CSS
   - [x] 基础
   - [ ] 移动端布局
-  - [ ] CSS动画
-  - [ ] Flex布局
+  - [ ] CSS 动画
+  - [ ] Flex 布局
   - [ ] 面试题
 - Javascript
   - [ ] 基础
@@ -45,7 +45,7 @@ order: 0
   - [ ] hooks
 - 工程化工具
   - [ ] webpack
-  - [ ] babel
+  - [x] babel
   - [ ] eslint
   - [ ] postcss
 - 其他
@@ -53,6 +53,6 @@ order: 0
   - [ ] mysql
   - [ ] mongodb
   - [ ] docker
-  - [ ] git
+  - [x] git
 
 > 此文档采用[`dumi`](https://d.umijs.org/zh-CN)编写

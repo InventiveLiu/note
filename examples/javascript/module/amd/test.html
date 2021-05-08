@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RequireJS AMD</title>
+</head>
+<body>
+  <p>open console to see alert.js load</p>
+  <button id="alert">async load alert</button>
+  <br >
+  <p>circular dependencies</p>
+  <button id="cycleA">require cycleA</button>
+  <button id="cycleB">require cycleB</button>
+  <button id="cycleBoth">require both</button>
+  <script src="./js/require.js"></script>
+  <script>
+    require.config({
+      baseUrl: 'js',
+    });
+
+    require(['main'], function() {
+      console.log('main loaded');
+    });
+  </script>
+</body>
+</html>
