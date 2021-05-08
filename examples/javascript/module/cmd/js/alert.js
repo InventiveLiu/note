@@ -1,0 +1,1 @@
+define((function(){return console.log("alert required"),function(e){alert(e)}}));

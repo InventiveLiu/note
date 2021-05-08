@@ -1,0 +1,1 @@
+console.log(require.cache);const e=require("./cycleB.js");console.log("value of cycleB:",e),module.exports="This is cycleA.js";

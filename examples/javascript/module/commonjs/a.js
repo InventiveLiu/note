@@ -1,0 +1,1 @@
+let e="a";const a={name:"a"};console.log("a is required");const o=o=>{e=o,a.name=o},m=()=>e;module.exports={name:e,obj:a,setName:o,getName:m};

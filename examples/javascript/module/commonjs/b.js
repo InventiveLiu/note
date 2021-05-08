@@ -1,0 +1,1 @@
+const o=require("./a");console.log(o.name),console.log(o.obj.name),o.setName("A"),console.log(o.name),console.log(o.obj.name),console.log(o.getName());const e=require("./a");console.log(o.name),console.log(e.getName()),console.log(e===o),console.log(require.cache[require.resolve("./a")]);

@@ -1,0 +1,1 @@
+define(["require","cycleA"],(function(e,c){return console.log("cycleB required"),{name:"cycleB",hi:function(){c=e("cycleA"),console.log("Hi! "+c.name)}}}));

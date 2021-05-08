@@ -1,0 +1,1 @@
+const e=document.getElementById("btn");e.addEventListener("click",(()=>{import("./dynamic").then((e=>{console.log(e),e.default()}))}));

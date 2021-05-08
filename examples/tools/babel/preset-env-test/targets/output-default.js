@@ -1,0 +1,1 @@
+var t=function(){function t(){var t=this;this.name="book",this.getName=function(){return t.name}}var n=t.prototype;return n.getNameA=function(){return this.name},t}();t.staticName="book static",t.staticFunc=function(){return t.staticName};

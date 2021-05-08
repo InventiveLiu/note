@@ -1,0 +1,1 @@
+import{add as t}from"./treeshakingtest.js";var e=1;document.title=e,document.getElementById("root").addEventListener("click",(()=>{e=t(e,1),document.title=e}));

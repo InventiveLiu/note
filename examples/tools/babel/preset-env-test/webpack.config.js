@@ -1,0 +1,1 @@
+const e=require("path");module.exports={mode:"production",entry:{tree:"./treeshaking.js"},output:{path:e.resolve(__dirname,"dist"),filename:"[name].js",clean:!0},module:{rules:[{test:/.js/,loader:"babel-loader"}]}};

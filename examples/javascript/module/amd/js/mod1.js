@@ -1,0 +1,1 @@
+define((function(){return console.log("mod1 required"),{name:"mod1",hi:function(){console.log("Hi! Im mod1")}}}));

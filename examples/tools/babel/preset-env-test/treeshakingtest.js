@@ -1,0 +1,1 @@
+export const add=(o,t)=>o+t;export const minus=(o,t)=>o-t;

@@ -1,0 +1,1 @@
+function t(t,e,a){return e in t?Object.defineProperty(t,e,{value:a,enumerable:!0,configurable:!0,writable:!0}):t[e]=a,t}class e{constructor(){t(this,"name","book"),t(this,"getName",(()=>this.name))}getNameA(){return this.name}}t(e,"staticName","book static"),t(e,"staticFunc",(()=>e.staticName));

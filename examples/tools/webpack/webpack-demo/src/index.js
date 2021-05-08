@@ -1,0 +1,1 @@
+function n(n){return n+1}function t(){return n(10)}document.body.appendChild(t());

@@ -1,0 +1,1 @@
+class t{constructor(){this.name="book",this.getName=()=>this.name}getNameA(){return this.name}}t.staticName="book static",t.staticFunc=()=>t.staticName;

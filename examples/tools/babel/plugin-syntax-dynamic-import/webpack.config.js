@@ -1,0 +1,1 @@
+const e=require("path");module.exports={mode:"production",entry:"./input.js",output:{path:e.resolve(__dirname,"dist"),filename:"[name]-without-plugin.js"},module:{rules:[{test:/.js/,exclude:/node_modules/,loader:"babel-loader"}]},optimization:{minimize:!1}};

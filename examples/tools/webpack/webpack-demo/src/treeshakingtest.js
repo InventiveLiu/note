@@ -1,0 +1,1 @@
+export function add(n,r){return n+r}export function minus(n,r){return n-r}

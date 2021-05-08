@@ -1,0 +1,1 @@
+var e=require("@babel/runtime-corejs3/helpers/interopRequireDefault"),t=e(require("@babel/runtime-corejs3/helpers/defineProperty"));class a{constructor(){(0,t.default)(this,"name","book"),(0,t.default)(this,"getName",(()=>this.name))}getNameA(){return this.name}}(0,t.default)(a,"staticName","book static"),(0,t.default)(a,"staticFunc",(()=>a.staticName));

@@ -1,0 +1,1 @@
+let e=1;export default e;

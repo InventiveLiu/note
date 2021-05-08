@@ -1,0 +1,1 @@
+define((function(e,c,n){console.log("main required");const t=document.getElementById("alert");t.onclick=()=>{e(["alert"],(function(e){e("i am myAlert")})),alert("i am before myAlert")};const o=document.getElementById("cycleBoth");o.onclick=()=>{e(["cycleA","cycleB"],(function(e,c){e.hi(),c.hi()}))};const i=e("mod1");i.hi();const l=e("mod2");l.hi()}));
