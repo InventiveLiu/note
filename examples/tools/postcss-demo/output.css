@@ -1,0 +1,32 @@
+$color: 'orange';
+
+::-moz-placeholder {
+  color: gray;
+}
+
+:-ms-input-placeholder {
+  color: gray;
+}
+
+::placeholder {
+  color: gray;
+}
+
+.h1 {
+  color: $color;
+}
+
+// this is comment
+.main {
+  background-color: #eee;
+
+  &.mobile {
+    .header {
+      height: 0;
+    }
+  }
+
+  .header {
+    height: 50px;
+  }
+}

@@ -1,0 +1,23 @@
+@import './theme.css';
+
+::placeholder {
+  color: gray;
+}
+
+.h1 {
+  color: $color;
+}
+// this is comment
+.main {
+  background-color: #eee;
+
+  &.mobile {
+    .header {
+      height: 0;
+    }
+  }
+
+  .header {
+    height: 50px;
+  }
+}
