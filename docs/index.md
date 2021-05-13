@@ -46,7 +46,9 @@ order: 0
 - 工程化工具
   - [ ] webpack
   - [x] babel
-  - [ ] eslint
+  - [x] eslint
+  - [x] stylelint
+  - [x] prettier
   - [ ] postcss
 - 其他
   - [ ] nodejs

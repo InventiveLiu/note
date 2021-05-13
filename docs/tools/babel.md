@@ -232,6 +232,18 @@ var charArr = [].concat('hello');
 
 其他配置项略过，目前都没有实际用到
 
+#### @babel/preset-typescript
+
+`babel`解析`ts`语法的插件，需要注意的是，`babel`只解析语法，不做静态类型检查，所以仍需要`tsc`来检查静态类型，好在`VSCode`本身支持`ts`的静态类型检查
+
+- `isTSX`，默认`false`，是否解析`jsx`
+
+其他配置暂时略过
+
+#### @babel/preset-flow
+
+`flow`是一个`js`的一个静态类型检查器，没有使用过
+
 ### plugins
 
 `plugins`的写法和`presets`是一样的，需要注意的是他们之间的执行顺序
