@@ -1,0 +1,56 @@
+.ibes-ui-icon {
+  display: inline-block;
+  background: center no-repeat;
+
+  &.icon-16 {
+    width: 16px;
+    height: 16px;
+    background-size: 16px;
+  }
+
+  &.icon-32 {
+    width: 32px;
+    height: 32px;
+    background-size: 32px;
+  }
+
+  &.icon-arrow-down {
+    background: url('./images/arrow_down.png') center no-repeat;
+    background-size: 12px 7px;
+  }
+
+  &.icon-arrow-down-gray {
+    background: url('./images/arrow_down_gray.png') center no-repeat;
+    background-size: 12px 7px;
+  }
+
+  &.icon-arrow-down-white {
+    background: url('./images/arrow_down_white.png') center no-repeat;
+    background-size: 12px 7px;
+  }
+
+  &.icon-arrow-up {
+    background: url('./images/arrow_up.png') center no-repeat;
+    background-size: 12px 7px;
+  }
+
+  &.icon-arrow-up-gray {
+    background: url('./images/arrow_up_gray.png') center no-repeat;
+    background-size: 12px 7px;
+  }
+
+  &.icon-arrow-up-white {
+    background: url('./images/arrow_up_white.png') center no-repeat;
+    background-size: 12px 7px;
+  }
+
+  &.icon-arrow-left {
+    background: url('./images/arrow_left.png') left center no-repeat;
+    background-size: 7px 12px;
+  }
+
+  &.icon-arrow-right {
+    background: url('./images/arrow_right.png') right center no-repeat;
+    background-size: 7px 12px;
+  }
+}

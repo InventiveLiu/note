@@ -79,6 +79,7 @@ module.exports = {
 同样推荐使用单独的文件来配置`postcss`，例如`postcss.config.js`，配置支持所有的[ProcessOptions](https://postcss.org/api/#processoptions)以及`plugins`
 
 ```js
+// postcss.config.js
 module.exports = {
   parser: 'postcss-js',
   plugins: [

@@ -252,9 +252,15 @@ var charArr = [].concat('hello');
 - `plugins`的执行是按数组顺序执行的
 - `presets`的执行是按数组**倒序**执行的
 
+#### @babel/cli 和 @babel/register
+
+`@babel/cli`是在命令行中执行`babel`的方法
+
+`@babel/register`利用`require`钩子函数来在`require`的时候运行`babel`，钩子函数绑定在`node`的原生`require`函数上，这样就让`nodejs`有`babel`的能力，比如编译`jsx`代码
+
 #### @babel/plugin-transform-runtime
 
-前面提到的`@babel/preset-env`可以转换语法，并且提供引入`polyfills`的方法。打开`@babel/preset-env`转换语法的结果，会发现有很多`_createClass`,`_defineProperty`这样的函数，称之为`helper`函数，这样的函数在每一个用到的文件都会存在，所以会造成包的体积变大
+前面提到的`@babel/preset-env`可以转换语法，并且提供引入`polyfills`的方法。打开`@babel/preset-env`转换语法的结果，会发现有很多`_createClass`,`_defineProperty`这样的函数，称之为`helper`函数，默认情况下，这样的函数在每一个用到的文件都会存在，所以会造成包的体积变大
 
 `@babel/plugin-transform-runtime`的作用就是把`_createClass`等函数转换成`@babel/runtime`（或`@babel/runtime-corejs2`,``@babel/runtime-corejs3`，取决于下面`corejs`的配置）里的函数，统一起来以减少重复代码，减小打包体积
 
@@ -330,7 +336,14 @@ module.exports = {
       },
     ],
   ],
-  plugins: [['@babel/plugin-transform-runtime']],
+  plugins: [
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        corejs: false,
+      },
+    ],
+  ],
 };
 
 // 同时在入口处
@@ -358,7 +371,14 @@ module.exports = {
       },
     ],
   ],
-  plugins: [['@babel/plugin-transform-runtime']],
+  plugins: [
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        corejs: false,
+      },
+    ],
+  ],
 };
 
 // webpack.config.js
