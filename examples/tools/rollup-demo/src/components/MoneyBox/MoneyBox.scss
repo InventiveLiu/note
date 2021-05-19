@@ -1,0 +1,53 @@
+@use '../../styles/themes.scss' as *;
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('./font/Gotham-Medium.eot');
+  src: url('./font/Gotham-Medium.woff'), url('./font/Gotham-Medium.ttf');
+}
+
+.ibes-money-box {
+  font-family: 'Gotham';
+
+  &.main {
+    color: $main-color;
+  }
+
+  &.sub {
+    color: $text-sub-color;
+  }
+
+  &.black {
+    color: #000;
+  }
+
+  &.large {
+    .money-unit {
+      font-size: 20px;
+    }
+
+    .money-num {
+      font-size: 32px;
+    }
+
+    .money {
+      font-size: 20px;
+    }
+  }
+
+  .money-unit {
+    font-size: 12px;
+    margin-right: 2px;
+    margin-left: 4px;
+  }
+
+  .money-num {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .money {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}

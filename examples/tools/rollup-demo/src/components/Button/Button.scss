@@ -1,0 +1,82 @@
+@use '../../styles/themes.scss' as *;
+
+.ibes-ui-button {
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid transparent;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  &.button-small {
+    display: inline-block;
+    height: 28px;
+    padding: 5px 20px;
+    font-size: 12px;
+    border-radius: 14px;
+  }
+
+  &.button-large {
+    width: 100%;
+    height: 40px;
+    padding: 9px 20px;
+    font-size: 14px;
+    border-radius: 20px;
+  }
+
+  &.button-primary {
+    color: #fff;
+    background-color: $main-color;
+  }
+
+  &.button-primary-hollow {
+    color: $main-color;
+    background-color: #fff;
+    border-color: $main-color;
+  }
+
+  &.button-info {
+    color: #fff;
+    background-color: $main-dark-color;
+  }
+
+  &.button-info-hollow {
+    color: $main-dark-color;
+    background-color: #fff;
+    border-color: $main-dark-color;
+  }
+
+  &.button-warn {
+    color: #fff;
+    background-color: $warn-color;
+  }
+
+  &.button-warn-hollow {
+    color: $warn-color;
+    background-color: #fff;
+    border-color: $warn-color;
+  }
+
+  &.button-simple {
+    color: $text-sub-color;
+    background-color: #fff;
+  }
+
+  &.button-simple-hollow {
+    color: $text-sub-color;
+    background-color: #fff;
+    border-color: $border-color;
+  }
+
+  &.button-disabled {
+    color: $disabled-color;
+    background-color: #fff;
+    border-color: $disabled-color;
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
