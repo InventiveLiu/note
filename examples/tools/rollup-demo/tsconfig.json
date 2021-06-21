@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
-    "noEmit": true,
+    "rootDir": "./src",
     "jsx": "react",
-    "esModuleInterop": true
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "declarationDir": "./types",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "skipDefaultLibCheck": true
   }
 }

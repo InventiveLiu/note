@@ -3,7 +3,7 @@
  * @description 图标
  */
 
-import React from 'react';
+import * as React from 'react';
 import classnames from 'classnames';
 
 import './Icon.scss';
