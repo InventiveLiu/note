@@ -68,6 +68,6 @@ module.exports = {
 
 `VSCode`插件提供编码时的`Prettier`实时自动格式化，不需要运行`prettier --write .`命令
 
-## 参考资料
+## 参考链接
 
 [Prettier 看这一篇就行了](https://zhuanlan.zhihu.com/p/81764012)

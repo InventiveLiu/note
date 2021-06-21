@@ -25,3 +25,11 @@ $disabled-color: #ccc;
 /* 标题字体颜色*/
 $title-color: #000000;
 
+body {
+  background-color: $bg-color;
+}
+
+::placeholder {
+  color: gray;
+}
+

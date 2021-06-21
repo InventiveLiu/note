@@ -26,6 +26,86 @@ group:
 
 `babel`的配置文件可以有很多形式，建议使用单独的配置文件，配置文件主要包含`presets`和`plugins`两个配置项
 
+### 配置文件格式
+
+配置文件通常分为`json`格式和`js`格式，这两种格式是有点区别的
+
+`js`格式的优点是可以导出函数，根据不同环境设置不同的配置，但缺点是`babel`难以判断是否需要缓存，所以需要设置`api.cache`
+
+在一次配置`babel`的配置过程中碰到了这个问题，当时全都是用的最新的版本
+
+```json
+{
+  "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/eslint-parser": "^7.14.5",
+    "@babel/eslint-plugin": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-unicorn": "^33.0.1",
+    "eslint-webpack-plugin": "^2.5.4",
+    "html-webpack-plugin": "^5.3.1"
+  }
+}
+```
+
+```js
+Parsing error: Caching was left unconfigured. Babel's plugins, presets, and .babelrc.js files can be configured
+for various types of caching, using the first param of their handler functions:
+
+module.exports = function(api) {
+  // The API exposes the following:
+
+  // Cache the returned value forever and don't call this function again.
+  api.cache(true);
+
+  // Don't cache at all. Not recommended because it will be very slow.
+  api.cache(false);
+
+  // Cached based on the value of some function. If this function returns a value different from
+  // a previously-encountered value, the plugins will re-evaluate.
+  var env = api.cache(() => process.env.NODE_ENV);
+
+  // If testing for a specific env, we recommend specifics to avoid instantiating a plugin for
+  // any possible NODE_ENV value that might come up during plugin execution.
+  var isProd = api.cache(() => process.env.NODE_ENV === "production");
+
+  // .cache(fn) will perform a linear search though instances to find the matching plugin based
+  // based on previous instantiated plugins. If you want to recreate the plugin and discard the
+  // previous instance whenever something changes, you may use:
+  var isProd = api.cache.invalidate(() => process.env.NODE_ENV === "production");
+
+  // Note, we also expose the following more-verbose versions of the above examples:
+  api.cache.forever(); // api.cache(true)
+  api.cache.never();   // api.cache(false)
+  api.cache.using(fn); // api.cache(fn)
+
+  // Return the value that will be cached.
+  return { };
+};
+```
+
+于是按照提示设置了`api.cache(true)`，但是接着在配置`eslint`并设置`parser: '@babel/eslint-parser'`后又开始报错了
+
+```js
+Caching has already been configured with .never or .forever()
+```
+
+通过上面的报错可以看到，`api.cache(true)`就相当于`api.cache.forever()`，目前没有解决这个问题，只能放弃`js`格式的配置
+
+之所以用`js`格式的配置是因为，在用`jest`测试时，需要编译为`cjs`规范的代码，`@babel/preset-env`需配置`modules: 'cjs'`
+
+但平时开发时，`@babel/preset-env`一般配置`modules: false`
+
 ### presets
 
 `presets`其实就是一系列`plugin`的合集

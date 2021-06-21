@@ -399,6 +399,8 @@ export default {
 
 `js/jsx/ts/tsx`的处理都可以交给`babel`，安装`@rollup/plugin-node-resolve`和`@rollup/plugin-babel`
 
+`rollup`及其插件，很多默认都不出处理`ts`文件，所以需要配置`@rollup/plugin-node-resolve`和`@rollup/plugin-babel`的`extensions`
+
 ```js
 // rollup.config.js
 
@@ -413,7 +415,9 @@ export default {
     format: 'es',
   },
   plugins: [
-    nodeResolve(),
+    nodeResolve({
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    }),
     commonjs(),
     babel({
       /**
