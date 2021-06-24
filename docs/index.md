@@ -18,7 +18,7 @@ order: 0
 
 - 个人项目
   - [ ] 模版库
-  - [ ] `cli`工具
+  - [x] `cli`工具
   - [ ] UI 组件库
   - [ ] 常用工具函数
 - HTML
@@ -33,8 +33,10 @@ order: 0
 - Javascript
   - [ ] 基础
   - [ ] 异步
-  - [ ] typescript
   - [ ] 面试题
+- Typescript
+  - [ ] 基础
+  - [x] tsconfig
 - 网络和浏览器
   - [ ] http
   - [ ] nginx
@@ -43,13 +45,16 @@ order: 0
 - React
   - [ ] 基础
   - [ ] hooks
+  - [x] redux
 - 工程化工具
   - [ ] webpack
   - [x] babel
   - [x] eslint
   - [x] stylelint
   - [x] prettier
-  - [ ] postcss
+  - [x] postcss
+  - [x] browserslist
+  - [x] rollup
 - 其他
   - [ ] nodejs
   - [ ] mysql

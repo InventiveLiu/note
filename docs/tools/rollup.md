@@ -471,6 +471,10 @@ export default {
 
 ### 处理图片
 
+`js`引入的图片`import logo from './logo.png'`，可以用`@rollup/plugin-image`插件处理
+
+`css`引入的图片，可以用`postcss-url`处理
+
 ### 处理字体
 
-###
+虽然`postcss-url`也可以做到字体文件的处理，但涉及到字体处理的话，更推荐用`webpack`

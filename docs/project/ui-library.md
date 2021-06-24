@@ -14,6 +14,17 @@ group:
 
 ## 如何生成 ts 声明文件
 
+我选择用`babel`来编译`ts`，用`tsc`来生成`.d.ts`声明文件，所以`tsconfig.json`配置如下：
+
+```json
+{
+  "declaration": true, // 生成声明文件
+  "emitDeclarationOnly": true, // 只生成声明文件
+  "declarationDir": "./types", // 声明文件存放目录，建议单独存放
+  "isolatedModules": true // babel 编译 ts时，不能使用const enum等特性
+}
+```
+
 ## 如何给组件库提供按需加载方案
 
 参考`antd`的按需加载方案，早期（`v4`之前）`antd`是利用`babel-plugin-import`方案，后来（`v4`）改成利用`ES Module TreeShaking`方案
@@ -44,7 +55,44 @@ import 'ui-lib/es/Button/style/css';
 这里也不会详细说明如何使用`rollup`，直接上配置文件，重要信息都在配置文件里可以体现
 
 ```js
-export default {};
+// import glob from 'glob';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import { babel } from '@rollup/plugin-babel';
+import postcss from 'rollup-plugin-postcss';
+import pkg from './package.json';
+
+const extensions = ['.js', '.jsx', '.ts', '.tsx'];
+
+const external = Object.keys(pkg.peerDependencies);
+
+export default {
+  input: 'src/index.tsx',
+  output: ['esm'].map(format => ({
+    format,
+    exports: 'auto',
+    dir: `lib`,
+    preserveModules: true,
+    preserveModulesRoot: 'src',
+  })),
+  external: [/@babel\/runtime/, ...external],
+  plugins: [
+    nodeResolve({
+      extensions,
+    }),
+    commonjs(),
+    babel({
+      babelHelpers: 'runtime',
+      extensions,
+      exclude: ['node_modules/**'],
+    }),
+    postcss({
+      extract: true,
+      extensions: ['.css', '.scss'],
+      minimize: true,
+    }),
+  ],
+};
 ```
 
 ### 其他方案
@@ -58,6 +106,8 @@ export default {};
 如果是使用`tree-shaking`提供`js`的按需加载的话，`css`可以嵌入到`js`里，而不是生成单独的`.css`文件
 
 ### antd 怎么做的
+
+`antd`默认的是引入全部的`css`
 
 ## icon 等图片如何处理
 
@@ -83,4 +133,4 @@ export default {};
 
 ## 字体文件如何处理
 
-某些业务组件可能用到特殊的字体，比如我们现在的金额显示，目前没想到较好的方法，只能采用远程链接
+某些业务组件可能用到特殊的字体，比如我们现在的金额显示，目前没想到较好的方法，只能采用远程链接的方式

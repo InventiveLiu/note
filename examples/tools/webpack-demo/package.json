@@ -4,12 +4,15 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --node-env production"
   },
   "keywords": [],
   "author": "inventiveliu",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "babel-loader": "^8.2.2",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.7.0"
   },

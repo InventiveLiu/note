@@ -1,18 +1,13 @@
-// import { join } from 'lodash-es';
-// import { add } from './treeshakingtest';
+import { add } from '@test/test-exclude';
 
-function addOne(a) {
-  return a + 1;
-}
+let a = '';
 
 function component() {
-  //  const element = document.createElement('div');
-
   // Lodash, currently included via a script, is required for this line to work
   // Lodash, now imported by this script
-  // addOne(10);
+  a = add(10, 11);
 
-  return addOne(10);
+  return 'test';
 }
 
 document.body.appendChild(component());

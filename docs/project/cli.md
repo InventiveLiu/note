@@ -515,7 +515,7 @@ const create = async (name, options) => {
 module.exports = create;
 ```
 
-到这里一个基本的`cli`算是完成了，但其实还有很多工作可以做，比如自动执行`npm install`为用户安装依赖等
+到这里一个基本的`cli`算是完成了，但其实还有很多工作可以做，比如`cli`版本更新提示，再比如自动执行`npm install`为用户安装依赖等
 
 ## 参考链接
 
