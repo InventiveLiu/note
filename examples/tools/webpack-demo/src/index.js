@@ -1,1 +1,1 @@
-function n(n){return n+1}function t(){return n(10)}document.body.appendChild(t());
+import{add as t}from"@test/test-exclude";let e="";function d(){return e=t(10,11),"test"}document.body.appendChild(d());
