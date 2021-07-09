@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React LifeCycle</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.0/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.0/umd/react-dom.development.js"></script>
+  <script>
+    class LifeCycle extends React.Component {
+      constructor(props) {
+        super(props);
+        console.log('constructor');
+        this.state = {
+          count: 0,
+        }
+      }
+
+      componentWillMount() {
+        console.log('will mount');
+      }
+
+      componentDidMount() {
+        console.log('did mount')
+      }
+
+      componentWillReceiveProps(nextProps) {
+        console.log('will receive props');
+        this.changeState(); // 这里同步更新state不会引起额外的render
+      }
+
+      // shouldComponentUpdate(nextProps, nextState) {
+      //   console.log('should update');
+      //   return true;
+      // }
+
+      componentWillUpdate(nextProps, nextState) {
+        console.log('will update');
+      }
+
+      componentDidUpdate(prevProps, prevState) {
+        console.log('did update');
+      }
+
+      componentWillUnmount() {
+        console.log('will unmount');
+      }
+
+      changeState = () => {
+        this.setState({
+          count: this.state.count,
+        })
+      }
+
+      render() {
+        console.log('render');
+        return React.createElement('div', {}, [
+          React.createElement('button', {
+            key: 'life',
+            className: 'life',
+            onClick: this.changeState,
+          }, 'state change'),
+          React.createElement('div', {
+            key: 'props',
+            className: 'props',
+          }, `props name: ${this.props.name}`),
+          React.createElement('div', {
+            key: 'state',
+            className: 'state',
+          }, `child count: ${this.state.count}`),
+        ]);
+      }
+    }
+
+    class App extends React.Component {
+      state = {
+        name: 'App',
+        count: 0,
+      }
+
+      changeName = () => {
+        this.setState({
+          name: 'LifeCycle'
+        })
+      }
+
+      changeCount = () => {
+        this.setState({
+          count: this.state.count + 1,
+        });
+      }
+
+      render () {
+        return React.createElement('div', null, [
+          React.createElement('button', {
+            key: 'parent-state',
+            className: 'app',
+            onClick: this.changeName,
+          }, 'parent state change and cause child props change'),
+          React.createElement('button', {
+            key: 'parent-state-2',
+            className: 'app',
+            onClick: this.changeCount,
+          }, 'parent state change but child props do not change'),
+          React.createElement('div', {
+            key: 'state',
+            className: 'state',
+          }, `parent count: ${this.state.count}`),
+          React.createElement(LifeCycle, {
+            key: 'life',
+            name: this.state.name,
+          }, null),
+        ])
+      }
+    }
+
+
+    ReactDOM.render(
+      React.createElement(App, {}, null),
+      document.getElementById('root')
+    )
+  </script>
+</body>
+</html>
