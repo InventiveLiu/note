@@ -315,14 +315,284 @@ static getDerivedStateFromProps(props, state) {
 
 ## 列表与`key`
 
+我们在使用`.map`来生成列表的时候，如果不加`key`属性，会在控制台看到`warning`提示列表应该有唯一的`key`值，这个`key`的作用是帮助`react`来识别列表的哪一个元素是新赠的，哪一个元素被删除了，以及哪一个元素被移动位置了
+
+`key`值在列表里应该具有确定性和唯一性，确定性指的是对同一份数据，它的`key`应该是不变的，这也是为什么数组的`index`不建议当作`key`的原因，因为当元素有新增或者删除时，同一份数据的`index`可能发生变化
+
+当接口给的数据没有合适的字段作为`key`时，为了消除那个`warning`有时候会想方设法的给元素添加一个`key`，甚至采用随机数，这样的做法是不可取的，这个时候我觉得正确的做法应该是先考虑接口数据中多个字段组合是否能形成一个唯一且稳定的`key`，如果还是没有合适的，再考虑自己生成一个 key 字段塞到数据里面
+
+如果列表没有添加，删除，排序等操作，默认用`index`做`key`也不是不行
+
+`key`还有一个作用，在上面`getDerivedStateFromProps`声明周期中有提到，当组件的`key`变化时，`react`会重新生成一个组件，而不是更新原来的组件，所以`key`还可以用来刷新组件
+
 ## 受控组件 & 非受控组件
+
+受控组件和非受控组件一般是针对表单元素的，以`input`为例，如果指定了`input`的`value`属性，那么`input`显示的值就受`value`属性控制，如果代码不改变`value`的值，输入框就不能输入任何内容，所以称之为受控组件，受控组件一般同时指定`value`和`onChange`属性，获取`input`输入值时直接在代码里就可以拿到
+
+非受控组件是相对受控组件而言的，不指定`input`的`value`属性的话，`input`可以输入任意值，此时想获取`input`的值的话，可以通过`ref`来获取`DOM`然后再获取值
+
+---
+
+上面是我理解的常规的受控组件和非受控组件，但是在看`getDerivedStateFromProps`文档时，文档还提到了一种受控组件和非受控组件的解释：
+
+数据都通过`props`传递，可以理解为受控组件，因为它的显示都取决于组件外部
+
+数据放在`state`里自己控制的，可以理解为非受控组件，因为它的显示可以自己控制
 
 ## 高阶组件
 
+高阶组件是一个函数，函数参数包含一个组件，函数返回值是一个新的组件
+
+> 什么时候用高阶组件？
+
+这个问题我觉得没有标准答案，当我们在开发过程中发现自己在重复地做一些事情，就要思考是不是有其他可以优化的手段了，高阶组件只是`react`开发过程中的一种优化方式，作用是逻辑复用、强化`props`
+
+其实我们在`react`开发过程中，已经在使用高阶组件了，比如`react-router`的`withRouter`，作用是给没有路由`props`（`history`和`location`）的组件添加路由`props`
+
+> 怎么用高阶组件
+
+高阶组件最常用的用法是这个样子的
+
+```js
+const withHOC = (WrappedComponent) => {
+
+  class WithHOC extends React.Component {
+    state = {
+      name: 'HOC',
+    }
+
+    // do something
+
+    render() {
+      // 根据条件渲染Component
+      if (this.state.name === 'HOC') {
+        return <div>HOC</div>
+      }
+      // 给Component增加一些props，称之为强化`props`
+      return <WrappedComponent {...this.state} {...this.props}>
+    }
+  }
+
+  // 指定HOC组件的名字，方便调试
+  // WrapComponent.displayName = `WithHOC(${WrappedComponent.displayName || WrappedComponent.name})`;
+
+  return WrapComponent;
+}
+```
+
+上面这种写法一般称之为属性代理，可以看到属性代理两个很容易理解的作用: **条件渲染**和**强化`props`**，但是属性代理有一个需要注意的点是，`WrappedComponent`上的静态方法不会复制到新的组件上，所以需要特殊处理，可以利用这个库[hoist-non-react-statics](https://github.com/mridgway/hoist-non-react-statics)来帮助我们处理
+
+上面是一般的高阶组件用法，但我们拿到传递过来的组件时，我们理论上可以对组件做任何事情，比如修改声明周期函数
+
+```js
+const withHOC = WrappedComponent => {
+  const oldDidMount = WrappedComponent.prototype.componentDidMount;
+  WrappedComponent.prototype.componentDidMount = function() {
+    console.log('new did mount');
+    oldDidMount.call(this);
+  };
+
+  //...
+};
+```
+
+官方不建议这样直接修改组件的原型链，除非你知道自己在做什么，否则不要这样做
+
+---
+
+下面还有一种高阶组件的写法
+
+```js
+const HOC = Component => {
+  class MyComponent extends Component {
+    // 这里直接继承传递过来的组件
+    // do something
+
+    render() {
+      return super.render(); // 可以用super调用Component自己的方法
+    }
+  }
+
+  return MyComponent;
+};
+```
+
+上面的写法一般称之为反向代理，高阶组件直接继承的是传递过来的组件，所以可以获取组件的`state`和`props`，重写组件的方法（包括生命周期函数），修改组件`render`结果
+
+这种写法仅适用于`class`组件，并且我们必须对传递过来的组件有足够的了解，还有需要注意的是这种写法很容易覆盖组件原本的行为，多个反向
+代理高阶组件一起使用时也需要特别注意，因为可能相互覆盖
+
+一般不推荐这种反向代理的写法，除非你知道自己在做什么
+
 ## Context
+
+翻译为上下文，`react`中`context`是一种组件之间传递数据的一种方式，其主要应用场景是那些在不同层级的组件都需要访问的数据，是不是和`react-redux`很像？
+
+- React.createContext
+
+创建一个`Context`对象，用法`const ThemeContext = React.createContext('dark')`
+
+- Context.Provider
+
+每个`Context`都有一个`Provider`组件，接收一个`value`属性
+
+```js
+<MyContext.Provider value="dark"></MyContext.Provider>
+```
+
+- Class.contextType
+
+`class`组件的静态属性`contextType`可以指定这个`class`使用哪一个`Context`，然后可以使用`this.context`来访问`Context.Provider`的`value`值
+
+```js
+class MyButton extends React.Component {
+  render() {
+    const theme = this.context;
+    return <div>{theme}</div>;
+  }
+}
+
+MyButton.contextType = ThemeContext;
+```
+
+- Context.Consumer
+
+`Context.Consumer`是订阅`Context.Provider`的`value`变化的组件，可以用在普通函数组件中
+
+```js
+<Context.Consumer>
+  {value => {
+    // value的值是 Context.Provider 的 value
+    return <div>{value}</div>;
+  }}
+</Context.Consumer>
+```
+
+- Context.displayName
+
+`React DevTools`使用这个字符串来显示`Context`的名字
+
+---
+
+`Context`理解起来并不难，但实际业务开发中用的概率较少，因为对于`Context`的使用场景（在不同层级的组件都需要访问的数据）都交给`react-redux`了，而`react-redux`正是利用`Context`来实现的
 
 ## Ref
 
+在`hooks`出现之前，`ref`的主要作用是用来访问`DOM`元素，或者访问`class`组件的实例来调用组件的方法，函数组件上不能使用`ref`属性，因为没有实例
+
+- `React.createRef`
+
+```js
+class AutoFocusInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+  }
+
+  componentDidMount() {
+    // 注意这里的current
+    this.textInput.current.focus();
+  }
+
+  render() {
+    return <input ref={this.textInput} />;
+  }
+}
+```
+
+- 回调`ref`
+
+```js
+class AutoFocusInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.textInput = null;
+    this.setTextInputRef = element => {
+      this.textInput = element;
+    };
+  }
+
+  componentDidMount() {
+    // 注意这里没有current
+    this.textInput.focus();
+  }
+
+  render() {
+    return <input ref={this.setTextInputRef} />;
+  }
+}
+```
+
+---
+
+回到上面高阶组件的例子
+
+```js
+const hoc = (WrappedComponent) => {
+  class HOC extends React.Component {
+    render() {
+      return (
+        <WrappedComponent {...this.props} {...this.state} />
+      )
+    }
+  }
+  return HOC;
+}
+
+// 高阶组件使用ref
+const HOC = hoc(WrappedComponent);
+const hocRef = React.createRef();
+<HOC ref={hocRef}>
+```
+
+高阶组件使用`ref`时，上面的`ref`指向的是`HOC`，而不是`WrappedComponent`，因为`ref`并不是组件的`props`，它跟`key`一样是`react`单独处理的属性，所以高阶组件无法传递`ref`
+
+这时候需要使用`React.forwardRef`来转发`ref`，使用方法如下
+
+```js
+const hoc = (WrappedComponent) => {
+  class HOC extends React.Component {
+    render() {
+      return (
+        <WrappedComponent {...this.props} {...this.state} />
+      )
+    }
+  }
+
+  return React.forwardRef((props, forwardedRef) => <HOC {...props} ref={forwardedRef}>);
+}
+```
+
 ## Portals
 
+`ReactDOM.createPortal`，作用是把组件渲染到父组件之外的节点中，用法`ReactDOM.createPortal(child, container)`，`child`是任何可以渲染的`react`子元素，`container`是一个`DOM`元素
+
+`Portals`的作用是把`DOM`元素渲染到其他位置，但是其他行为，比如`context`以及事件冒泡，尽管真实的`DOM`元素没有父子关系，但是虚拟`DOM`的冒泡事件依然能够被捕获，具体可以看官网的[这个例子](https://codepen.io/gaearon/pen/jGBWpE)
+
+`Portals`的典型应用场景是一些弹出层，比如弹框，下拉选择等
+
 ## 性能优化
+
+这部分来自官方文档，我觉得有两点可以着重关注一下，一个是虚拟列表，另一个是`immutable data`
+
+- 虚拟列表
+
+在`web`开发中，`DOM`的渲染和管理是非常耗时的，随着`DOM`的增多，页面会越来越卡顿
+
+而在处理滚动加载的列表时，假设列表长度无限，如果一直向下滚动，就会导致`DOM`越来越多，会有卡顿
+
+虚拟列表的解决思路是，只渲染窗口看得见的数据，窗口看不见的数据不用渲染成真实`DOM`
+
+- immutable data
+
+在`react`开发中，对于`props`和`state`传递的是值还是引用关系，这点非常重要，像`someProps={{}}`这种很容易被忽略，这种写法每次传递的都是新的`{}`对象，所以`someProps`每次都会变化
+
+## React API
+
+下面只列举我觉得需要特别关注的 API
+
+### React.memo
+
+### React.lazy & React.Suspense
+
+### React.cloneElement

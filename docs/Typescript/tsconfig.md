@@ -1,5 +1,5 @@
 ---
-title: 基础
+title: 配置解析
 order: 1
 group:
   title: typescript
