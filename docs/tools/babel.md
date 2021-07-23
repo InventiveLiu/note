@@ -504,6 +504,10 @@ module.exports = {
 
 理想情况是，即不污染全局变量，又能根据环境和使用情况来按需引入`polyfills`，目前无法实现
 
+## babel 插件开发
+
+挖坑占位
+
 ## 参考链接
 
 [解剖 Babel —— 向前端架构师迈出一小步](https://mp.weixin.qq.com/s/C1hxBYVbHHHWfofDvekt8Q)

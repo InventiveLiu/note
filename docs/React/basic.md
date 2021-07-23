@@ -117,7 +117,7 @@ group:
   - `render`
   - `componentDidUpdate(prevProps, prevState)`
 
-- `state`更新时，依次执行(与`props`更新相比，不执行`shouldComponentUpdate`)
+- `state`更新时，依次执行(与`props`更新相比，不执行`componentWillReceiveProps`)
 
   - `shouldComponentUpdate(nextProps, nextState)`，`PureComponent`没有这个生命周期
   - `componentWillUpdate(nextProps, nextState)`
@@ -593,6 +593,38 @@ const hoc = (WrappedComponent) => {
 
 ### React.memo
 
+`React.memo(Component, [equalFunc])`
+
+`React.memo`是高阶组件，通常作为一种性能优化的手段，被包裹的在`props`不变的情况下，`React`会直接复用上一次渲染的结果
+
+使用时需要注意，`React,memo`只比较`props`，`state`或`context`的变更依然能够引起组件渲染
+
+`React.memo`默认使用浅比较，我们也可以使用第二个参数来控制比较结果，`equalFunc(prevProps, nextProps) => boolean`，返回`true`表示一致，不重新渲染，`false`表示不一致，需要重新渲染
+
 ### React.lazy & React.Suspense
 
+`Suspense`目前唯一支持的使用场景是配合`lazy`来实现动态加载组件，不过根据官方文档，未来`Suspense`会有更多更强大的使用场景，比如请求数据等，我们拭目以待
+
+```js
+const SomeComponent = React.lazy(() => import('./SomeComponent'));
+
+function MyComponent = () => {
+  return (
+    <React.Suspense fallback={(<Loading />)}>
+      <div>
+        <SomeComponent />
+      </div>
+    </React.Suspense>
+  )
+}
+```
+
+`React.lazy`的使用需要`promise`支持
+
 ### React.cloneElement
+
+```js
+React.clone(element, [props], [...children]);
+```
+
+以`element`元素为样板克隆并返回新的`React`元素，保留原`props`并且可以修改或增加新的`props`，

@@ -49,12 +49,13 @@ order: 0
   - [x] `cli`工具
   - [ ] UI 组件库
   - [ ] 常用工具函数
+  - [ ] 前端监控/运维
 - HTML
   - [x] 基础
   - [x] 面试题
 - CSS
   - [x] 基础
-  - [ ] 移动端布局
+  - [ ] 移动端适配
   - [ ] CSS 动画
   - [ ] Flex 布局
   - [ ] 面试题
@@ -63,17 +64,19 @@ order: 0
   - [ ] 异步
   - [ ] 面试题
 - Typescript
-  - [ ] 基础
+  - [x] 基础
   - [x] tsconfig
 - 网络和浏览器
   - [ ] http
-  - [ ] nginx
+  - [x] nginx
   - [ ] 浏览器
   - [ ] 面试题
 - React
-  - [ ] 基础
-  - [ ] hooks
+  - [x] 基础
+  - [x] hooks
   - [x] redux
+  - [ ] fast-refresh
+  - [x] react-router
 - 工程化工具
   - [x] webpack
   - [x] babel
