@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"> -->
+  <!-- <meta name="viewport" content="initial-scale=0.5, user-scalable=no" /> -->
+  <title>rem + initial-scale=1</title>
+  <style>
+    body {
+      display: flex;
+      font-size: 24px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .demo {
+      margin: auto;
+    }
+    #demo1 {
+      width: 4rem;
+      height: 4rem;
+      border: 1px solid red;
+    }
+  </style>
+  <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.2/??flexible_css.js,flexible.js"></script>
+</head>
+<body>
+  <div class="demo">
+    <div>请用手机端查看</div>
+    <br >
+    <div id="dpr"></div>
+    <br >
+    <div id="demo1">border: 1px</div>
+  </div>
+</body>
+<script>
+  window.onload = () => {
+    document.getElementById('dpr').innerHTML = `dpr: ${window.devicePixelRatio}`;
+    // setRootFontSize();
+    // initScale();
+    // window.addEventListener('resize', setRootFontSize);
+  }
+
+  function setRootFontSize() {
+    const dpr = window.devicePixelRatio;
+    const docEl = document.documentElement;
+    const scale = 1 / dpr;
+    const metaEl = document.createElement('meta');
+    metaEl.setAttribute('name', 'viewport');
+    metaEl.setAttribute('content', `initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no`)
+    docEl.firstElementChild.appendChild(metaEl);
+
+    const rem = docEl.clientWidth / 10
+    docEl.style.fontSize = `${rem}px`
+  }
+
+  function initScale() {
+    const docEl = document.documentElement;
+    const WIDTH = 640;
+    const scale = screen.width / 640;
+    const metaEl = document.createElement('meta');
+    metaEl.setAttribute('name', 'viewport');
+    metaEl.setAttribute('content', `width=${WIDTH}, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no`)
+    docEl.firstElementChild.appendChild(metaEl);
+  }
+</script>
+</html>
