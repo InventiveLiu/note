@@ -3,24 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Document</title>
   <style>
+    :root {
+      --sab: env(safe-area-inset-bottom);
+    }
     * {
       margin: 0;
       padding: 0;
     }
+    body {
+      display: flex;
+    }
+    .demo {
+      margin: auto;
+    }
+    #demo1 {
+      width: 200px;
+      height: 50px;
+      border: 1px solid red;
+    }
+    #demo2 {
+      width: 200px;
+      height: 50px;
+      border: 0.5px solid red;
+    }
+    #demo3 {
+      width: 200px;
+      height: 50px;
+      border: 1.5px solid red;
+    }
+    #demo4 {
+      position: relative;
+      width: 200px;
+      height: 50px;
+    }
+    #demo4::after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      border: 1px solid red;
+      border-radius: 4px;
+      transform-origin: 0 0;
+      transform: translate(-0.5px, -0.5px) scale(0.5); /* 这里不加translate的话，hover状态会发现有偏差 */
+    }
+    #demo4:hover {
+      background-color: aqua;
+    }
   </style>
 </head>
 <body>
-  <div id="dpr"></div>
-  <div style="border-bottom: 1px solid #f00;">1px</div>
-  <br >
-  <div style="border-bottom: 0.5px solid #f00;">0.5px</div>
+  <div class="demo">
+    <div>请用手机端查看</div>
+    <br >
+    <div id="dpr"></div>
+    <br >
+    <div id="sab"></div>
+    <br >
+    <div id="demo1">border: 1px</div>
+    <br >
+    <div id="demo2">border: 0.5px</div>
+    <br >
+    <div id="demo3">border: 1.5px</div>
+    <br >
+    <div id="demo4">::after + transform: scale</div>
+  </div>
 </body>
 <script>
   window.onload = () => {
     document.getElementById('dpr').innerHTML = `dpr: ${window.devicePixelRatio}`;
+
+    const sab = window.getComputedStyle(document.documentElement).getPropertyValue('--sab');
+
+    document.getElementById('sab').innerHTML = `safe-area-inset-bottom: ${sab}`
   }
 </script>
 </html>
