@@ -396,6 +396,8 @@ try_files $uri $uri/ /index.html$is_args$args;
 
 ## 总结
 
+`nginx`对于`web`开发者来说，主要的作用是在生产环境下提供静态资源服务，在开发环境解决跨域问题
+
 ## 参考链接
 
 [一文理清 nginx 中的 location 配置（系列一）](https://zhuanlan.zhihu.com/p/130819099)

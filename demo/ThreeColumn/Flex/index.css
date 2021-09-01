@@ -1,0 +1,30 @@
+.header {
+  height: 50px;
+  text-align: center;
+  background-color: #999;
+}
+
+.content {
+  display: flex;
+}
+
+.footer {
+  height: 50px;
+  text-align: center;
+  background-color: #999;
+}
+
+.left {
+  flex: 0 0 150px;
+  background-color: blanchedalmond;
+}
+
+.middle {
+  flex: 1;
+  background-color: chocolate;
+}
+
+.right {
+  flex: 0 0 100px;
+  background-color: cadetblue;
+}

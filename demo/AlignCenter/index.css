@@ -1,0 +1,70 @@
+.section {
+  padding: 10px 0;
+  margin: 10px 0;
+}
+
+.sectionName {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  border: 1px solid aqua;
+}
+
+.containerFlexJustify {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  margin: 10px;
+  border: 1px solid #999;
+}
+
+.containerFlexMargin {
+  display: flex;
+  height: 200px;
+  margin: 10px;
+  border: 1px solid #999;
+}
+
+.boxMargin {
+  margin: auto;
+}
+
+.containerTransform {
+  position: relative;
+  height: 200px;
+  margin: 10px;
+  border: 1px solid #999;
+}
+
+.boxTransform {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.containerVertical {
+  height: 200px;
+  margin: 10px;
+  border: 1px solid #999;
+  text-align: center;
+}
+
+.containerVertical::after {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.boxVertical {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+

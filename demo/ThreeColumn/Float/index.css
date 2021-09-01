@@ -1,0 +1,55 @@
+.header {
+  height: 50px;
+  text-align: center;
+  background-color: #999;
+}
+
+.content {
+  position: relative;
+  overflow: hidden;
+}
+
+.footer {
+  height: 50px;
+  text-align: center;
+  background-color: #999;
+}
+
+.left {
+  position: relative;
+  float: left;
+  width: 150px;
+  margin-left: -100%;
+  background-color: blanchedalmond;
+}
+
+.middle {
+  position: relative;
+  float: left;
+  width: 100%;
+  background-color: chocolate;
+}
+
+.right {
+  position: relative;
+  float: left;
+  width: 100px;
+  margin-left: -100px;
+  background-color: cadetblue;
+}
+
+.wrap1 .content {
+  padding: 0 100px 0 150px;
+}
+
+.wrap1 .left {
+  left: -150px;
+}
+
+.wrap1 .right {
+  right: -100px
+}
+
+.wrap2 .innerMiddle {
+  padding: 0 100px 0 150px;
+}

@@ -10,7 +10,7 @@ group:
 
 `webpack`是一个模块化打包工具，当前阶段的`web`开发基本离不开`webpack`
 
-虽然`webpack 5`已经更新很久了，但从`npm`下载情况来看，`webpack 4`仍然是主力
+虽然`webpack 5`已经更新很久了，但从`npm`下载情况来看，`webpack 4`仍然是主力，`webpack5`不再提供`nodejs`核心模块的支持，所以如果我们在`web`代码里使用了诸如`crypto`等模块，`webpack5`会提示我们使用`resolve.fallback: { "crypto": require.resolve("crypto-browserify") }`来`polyfill`
 
 很多人都开玩笑说需要一个专门的岗位叫`webpack`配置工程师，说明了`webpack`的配置很复杂
 
@@ -1112,11 +1112,11 @@ module.exports = {
 
 ### loader 开发
 
-挖坑占位
+`@TODO` `webpack loader`开发
 
 ### plugin 开发
 
-挖坑占位
+`@TODO` `webpack plugin`开发
 
 ## 其他打包工具
 

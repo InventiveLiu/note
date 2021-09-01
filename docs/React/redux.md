@@ -163,11 +163,11 @@ const counterReducer = (state = initState, action) => {
 - 减少`{...state, ...action.payload}`这种粗暴的方法
 - 传递给`combineReducers`的`reducers`应该是`{ user: {}, post: {} }`，而不是`{userReducer: {}, postReducer: {} }`
 - 以数据所属的模块来组织`store`，而不是根据组件来组织`store`
-- 把`reducers`当作状态机(`@TODO`)
+- 把`reducers`当作状态机(`@TODO` 如何理解这里的状态机)
 - `store`尽量做到扁平化
 - 把`action`当作描述**发生了什么**的事件，而不是仅仅当作改变`store`的赋值方法
 - 使用有意义的`action.type`，而不仅仅是`UPDATE_STORE`
-- 允许多个`reducer`响应同一个`action`(`@TODO`)
+- 允许多个`reducer`响应同一个`action`(`@TODO` 如何理解?)
 - 不要`dispatch`多个`action`，考虑把多个`action`合并成一个，或者使用`react-redux`的`batch()`方法来避免多次更新`UI`
 - 思考数据是不是一定要放在`store`里面
 - 使用`react-redux`的`hooks api`
