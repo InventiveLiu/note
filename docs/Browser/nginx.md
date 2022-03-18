@@ -380,11 +380,11 @@ listen 443 ssl http2;
 
 ```yml
 http {
-server {
-location / {
-try_files $uri $uri/ /index.html$is_args$args;
-}
-}
+  server {
+    location / {
+      try_files $uri $uri/ /index.html$is_args$args;
+    }
+  }
 }
 ```
 
@@ -393,6 +393,20 @@ try_files $uri $uri/ /index.html$is_args$args;
 `$uri`的值是`/login`，`$is_args`的值是`?`，`$args`的值是`redirect=xxx`
 
 `try_files`定义的是文件查找的顺序，上述定义表示先查找文件`$uri`，再查找目录`$uri/`下面的`index`，都没找到的话就用`/index.html`来返回
+
+## 配置二级目录，`alias`和`root`有何区别？
+
+```yml
+http {
+  server {
+    location /mobile {
+      alias /path/to/mobile/ # htttp://localhost/mobile/index.html means /path/to/mobile/index.html
+      # root /path/to/mobile # htttp://localhost/mobile/index.html means /path/to/mobile/mobile/index.html
+      try_files $uri $uri/ /index.html$is_args$args;
+    }
+  }
+}
+```
 
 ## 总结
 
