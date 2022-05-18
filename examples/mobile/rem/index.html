@@ -83,3 +83,58 @@
   }
 </script>
 </html>
+
+<style>
+  .main {
+    color: blue;
+  }
+  span {
+    color: green;
+  }
+</style>
+<div class="main" style="color: red !important;">
+  <span>123</span>
+</div>
+
+<style>
+  .parent {
+    width: 200px;
+    height: 100px;
+  }
+
+  .child {
+    width: 50%;
+    height: 50%;
+    padding: 10%;
+  }
+</style>
+<div class="parent">
+  <div class="child">child</div>
+</div>
+
+<style>
+  .flex {
+    display: flex;
+    width: 300px;
+  }
+
+  .item1 {
+    width: 50px;
+    flex: 0 0 auto;
+  }
+
+  .item2 {
+    width: 50px;
+    flex: 1;
+  }
+
+  .item3 {
+    width: 50px;
+    flex: 1;
+  }
+</style>
+<div class="flex">
+  <div class="item1">item1</div>
+  <div class="item2">item2</div>
+  <div class="item3">item3</div>
+</div>

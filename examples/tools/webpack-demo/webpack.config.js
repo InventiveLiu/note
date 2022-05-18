@@ -14,6 +14,13 @@ module.exports = {
         loader: 'babel-loader',
         include: path.resolve(__dirname, 'src'),
       },
+      {
+        test: /package\.json$/,
+        loader: path.resolve('./loader.js'),
+        options: {
+          only: ['version'],
+        },
+      },
     ],
   },
 };
